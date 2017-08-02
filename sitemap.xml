@@ -12,4 +12,8 @@
         <loc>https://mamun.github.io/blog/2017/hello-clj.html</loc>
         <lastmod>2017-08-02</lastmod>
     </url>
+    <url>
+        <loc>https://mamun.github.io/blog/2017/clj-spec-java.html</loc>
+        <lastmod>2017-08-02</lastmod>
+    </url>
 </urlset>

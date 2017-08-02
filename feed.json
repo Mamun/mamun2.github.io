@@ -10,6 +10,17 @@
     },
     "items": [
         {
+            "id": "https://mamun.github.io/blog/2017/clj-spec-java.html",
+            
+           
+            "url": "https://mamun.github.io/blog/2017/clj-spec-java.html",
+            "date_published": "2017-08-02T00:00:00+02:00",
+            "date_modified": "2017-06-01T00:00:00+02:00",
+            "author" : "Abdullah Mamun",
+            "tags": [ "clojure" ],
+            "content_html" : "\n<p> Define data model and service <\/p>\n<pre class=\"prettyprint\">\n<code>\npublic class Person{\n private String fname;\n private String lname;\n private Date birthDate;\n private Address address;\n //setter and getter method here..\n}\n\npublic class Address{\n private String roadName;\n private String houseNo;\n private String postCode;\n private String city;\n private String country;\n //setter and getter mehod here\n}\n\npublic class Score{\n private Score value;\n //setter and getter method here\n}\n\npublic class ScoreService {\n public Score getScore(Person person){\n //do business logic\n Score score = new Score();\n score.setScoreType(Score.ScoreType.HIGH);\n return score;\n }\n}\n<\/code>\n<\/pre>\n\n<p>Define spec for data model<\/p>\n<pre class=\"prettyprint\">\n<code>\n(s/def :person/fname string?)\n(s/def :person/lname string?)\n(s/def :person/birthDate inst?)\n\n(s/def :address/roadName string?)\n(s/def :address/houseNo string?)\n(s/def :address/postCode int?)\n(s/def :address/city string?)\n(s/def :address/country string?)\n\n(s/def ::address (s/keys :req-un [:address/roadName\n :address/houseNo\n :address/postCode\n :address/city\n :address/country]))\n\n(s/def ::person (s/keys :req-un [:person/fname\n :person/lname\n :person/birthDate]\n :opt-un [::address]))\n\n\n(s/def :score/value int?)\n(s/def ::score (s/keys :req-un [:score/value]))\n<\/code>\n<\/pre>\n\n<p>Generate Sample data<\/p>\n<pre class=\"prettyprint\">\n<code>\n(g/sample (s/gen ::person) 2)\n;;Sample data\n({:fname \"\", :lname \"\", :birthDate #inst\"1969-12-31T23:59:59.999-00:00\"}\n {:fname \"k\",\n :lname \"\",\n :birthDate #inst\"1970-01-01T00:00:00.000-00:00\",\n :address {:roadName \"O\", :houseNo \"R\", :postCode -1, :city \"0\", :country \"4\"}})\n<\/code>\n<\/pre>\n\n\n<p>Write clojure test case to call java API <\/p>\n<pre class=\"prettyprint\">\n<code>\n(def gson (Gson.))\n\n(defn from-json [v t]\n (.fromJson gson v t))\n\n(defn to-jtype [t v]\n (-> v\n (cheshire/generate-string)\n (from-json t)))\n\n(defn get-score [v]\n (->> (u/to-jtype Person v)\n (.getScore (ScoreService.))\n (u/from-jtype)))\n\n(s/fdef get-score\n :args (s/cat :v ::person)\n :ret ::score)\n\n(ct/defspec get-score-test\n 10\n (prop/for-all [v (s/gen ::person)]\n (let [w (get-score v)]\n (not= nil? w))))\n<\/code>\n<\/pre>\n\n<p>Run clojure test from command line <\/p>\n<pre class=\"prettyprint\">\n<code>\nmvn clojure:test\n\n[INFO] --- clojure-maven-plugin:1.8.1:test (default-cli) @ sdemo ---\n\nTesting dev.lab.sdemo.util\n\nRan 0 tests containing 0 assertions.\n0 failures, 0 errors.\n\nTesting dev.lab.sdemo.score-service-test\n{:result true, :num-tests 10, :seed 1501674877185, :test-var \"get-score-test\"}\n\nRan 1 tests containing 1 assertions.\n0 failures, 0 errors.\nTests run: , Assertions: 1, Failures: 0, Errors: 0\n<\/code>\n<\/pre>\n<p><a href=\"https://github.com/Mamun/java-spec\">Github link<\/a><\/p>\n\n"
+        }, 
+        {
             "id": "https://mamun.github.io/blog/2017/hello-clj.html",
             
            
