@@ -4,7 +4,7 @@ Jonathan Bullock
 :jbake-last_updated: 2017-06-01
 :jbake-author: Jonathan Bullock
 :jbake-type: post
-:jbake-status: published
+:jbake-status: draft
 :jbake-tags: blog, asciidoc
 :description: This is a description of fourth post
 :idprefix:

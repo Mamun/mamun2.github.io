@@ -3,7 +3,7 @@ date=2013-09-26
 last_updated=2017-06-01
 type=post
 tags=blog, asciidoc
-status=published
+status=draft
 featuredimage=img/blog/sample-image.jpg
 featuredalt=JBake
 ~~~~~~
