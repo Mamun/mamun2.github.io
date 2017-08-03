@@ -167,7 +167,7 @@
 <article class="post">
    <header>
     <div class="title">
-                    <h2><a href="blog/2017/clj-spec-java.html">Clojure spec for Java Property Based Testing</a></h2>
+                    <h2><a href="blog/2017/hello-clj.html">Hello world</a></h2>
 
 
     </div>
@@ -185,137 +185,15 @@
          
     <div id="content">
        
-<p> Define data model and service </p>
+
+<p>Hello world</p>
+
 <pre class="prettyprint">
 <code>
-public class Person{
-  private String fname;
-  private String lname;
-  private Date birthDate;
-  private Address address;
-  //setter and getter method here..
-}
+	(println "Hello World ")
 
-public class Address{
-    private String roadName;
-    private String houseNo;
-    private String postCode;
-    private String city;
-    private String country;
-  //setter and getter mehod here
-}
-
-public class Score{
-  private Score value;
-  //setter and getter method here
-}
-
-public class ScoreService {
-    public Score getScore(Person person){
-        //do business logic
-        Score score = new Score();
-        score.setScoreType(Score.ScoreType.HIGH);
-        return score;
-    }
-}
 </code>
 </pre>
-
-<p>Define spec for data model</p>
-<pre class="prettyprint">
-<code>
-(s/def :person/fname string?)
-(s/def :person/lname string?)
-(s/def :person/birthDate inst?)
-
-(s/def :address/roadName string?)
-(s/def :address/houseNo string?)
-(s/def :address/postCode int?)
-(s/def :address/city string?)
-(s/def :address/country string?)
-
-(s/def ::address (s/keys :req-un [:address/roadName
-                                  :address/houseNo
-                                  :address/postCode
-                                  :address/city
-                                  :address/country]))
-
-(s/def ::person (s/keys :req-un [:person/fname
-                                 :person/lname
-                                 :person/birthDate]
-                        :opt-un [::address]))
-
-
-(s/def :score/value int?)
-(s/def ::score (s/keys :req-un [:score/value]))
-</code>
-</pre>
-
-<p>Generate Sample data</p>
-<pre class="prettyprint">
-<code>
-(g/sample (s/gen ::person) 2)
-;;Sample data
-({:fname "", :lname "", :birthDate #inst"1969-12-31T23:59:59.999-00:00"}
- {:fname "k",
-  :lname "",
-  :birthDate #inst"1970-01-01T00:00:00.000-00:00",
-  :address {:roadName "O", :houseNo "R", :postCode -1, :city "0", :country "4"}})
-</code>
-</pre>
-
-
-<p>Write clojure test case to call java API </p>
-<pre class="prettyprint">
-<code>
-(def gson (Gson.))
-
-(defn from-json [v t]
-  (.fromJson gson v t))
-
-(defn to-jtype [t v]
-  (-> v
-      (cheshire/generate-string)
-      (from-json t)))
-
-(defn get-score [v]
-  (->> (u/to-jtype Person v)
-       (.getScore (ScoreService.))
-       (u/from-jtype)))
-
-(s/fdef get-score
-        :args (s/cat :v ::person)
-        :ret ::score)
-
-(ct/defspec get-score-test
-            10
-            (prop/for-all [v (s/gen ::person)]
-                          (let [w (get-score v)]
-                            (not= nil? w))))
-</code>
-</pre>
-
-<p>Run clojure test from command line   </p>
-<pre class="prettyprint">
-<code>
-mvn clojure:test
-
-[INFO] --- clojure-maven-plugin:1.8.1:test (default-cli) @ sdemo ---
-
-Testing dev.lab.sdemo.util
-
-Ran 0 tests containing 0 assertions.
-0 failures, 0 errors.
-
-Testing dev.lab.sdemo.score-service-test
-{:result true, :num-tests 10, :seed 1501674877185, :test-var "get-score-test"}
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-Tests run: , Assertions: 1, Failures: 0, Errors: 0
-</code>
-</pre>
-<p><a href="https://github.com/Mamun/java-spec">Github link</a></p>
 
 
     </div>
@@ -325,43 +203,43 @@ Tests run: , Assertions: 1, Failures: 0, Errors: 0
 <!-- Social Share Button HTML -->
 
 <!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://mamun.github.io/blog/2017/clj-spec-java.html&text=Clojure spec for Java Property Based Testing&via=mamuninfo2" target="_blank" class="share-btn twitter">
+<li><a href="//twitter.com/share?url=https://mamun.github.io/blog/2017/hello-clj.html&text=Hello world&via=mamuninfo2" target="_blank" class="share-btn twitter">
     <i class="fa fa-twitter"></i>
     <p>Twitter</p>
 </a></li>
 
 <!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://mamun.github.io/blog/2017/clj-spec-java.html" target="_blank" class="share-btn google-plus">
+<li><a href="//plus.google.com/share?url=https://mamun.github.io/blog/2017/hello-clj.html" target="_blank" class="share-btn google-plus">
     <i class="fa fa-google-plus"></i>
     <p>Google+</p>
 </a></li>
 
 <!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://mamun.github.io/blog/2017/clj-spec-java.html" target="_blank" class="share-btn facebook">
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://mamun.github.io/blog/2017/hello-clj.html" target="_blank" class="share-btn facebook">
     <i class="fa fa-facebook"></i>
     <p>Facebook</p>
 </a></li>
 
 <!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://mamun.github.io/blog/2017/clj-spec-java.html&title=Clojure spec for Java Property Based Testing" target="_blank" class="share-btn reddit">
+<li><a href="//reddit.com/submit?url=https://mamun.github.io/blog/2017/hello-clj.html&title=Hello world" target="_blank" class="share-btn reddit">
     <i class="fa fa-reddit-alien"></i>
     <p>Reddit</p>
 </a></li>
 
 <!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://mamun.github.io/blog/2017/clj-spec-java.html&title=Clojure spec for Java Property Based Testing" target="_blank" class="share-btn linkedin">
+<li><a href="//www.linkedin.com/shareArticle?url=https://mamun.github.io/blog/2017/hello-clj.html&title=Hello world" target="_blank" class="share-btn linkedin">
     <i class="fa fa-linkedin"></i>
     <p>LinkedIn</p>
 </a></li>
 
 <!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://mamun.github.io/blog/2017/clj-spec-java.html&title=Clojure spec for Java Property Based Testing" target="_blank" class="share-btn stumbleupon">
+<li><a href="//www.stumbleupon.com/submit?url=https://mamun.github.io/blog/2017/hello-clj.html&title=Hello world" target="_blank" class="share-btn stumbleupon">
     <i class="fa fa-stumbleupon"></i>
     <p>StumbleUpon</p>
 </a></li>
 
 <!-- Email -->
-<li><a href="mailto:?subject=Check out this post by Abdullah Mamun&body=https://mamun.github.io/blog/2017/clj-spec-java.html" target="_blank" class="share-btn email">
+<li><a href="mailto:?subject=Check out this post by Abdullah Mamun&body=https://mamun.github.io/blog/2017/hello-clj.html" target="_blank" class="share-btn email">
     <i class="fa fa-envelope"></i>
     <p>Email</p>
 </a></li>
@@ -376,7 +254,7 @@ Tests run: , Assertions: 1, Failures: 0, Errors: 0
     	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
  	        <li><a href='tags/clojure.html'>clojure</a></li>
 
-				<li><a class="icon fa-comment" href="blog/2017/clj-spec-java.html#disqus_thread"> &nbsp;</a></li>
+				<li><a class="icon fa-comment" href="blog/2017/hello-clj.html#disqus_thread"> &nbsp;</a></li>
  		</ul>
     	
     </footer>

@@ -9,114 +9,20 @@ author=Abdullah Mamun
 ~~~~~~
 
 <p> Define data model and service </p>
-<pre class="prettyprint">
-<code>
-public class Person{
-  private String fname;
-  private String lname;
-  private Date birthDate;
-  private Address address;
-  //setter and getter method here..
-}
+<script src="https://gist.github.com/Mamun/1b1a69e4eaca30260f39cbd4852d314d.js"></script>
 
-public class Address{
-    private String roadName;
-    private String houseNo;
-    private String postCode;
-    private String city;
-    private String country;
-  //setter and getter mehod here
-}
-
-public class Score{
-  private Score value;
-  //setter and getter method here
-}
-
-public class ScoreService {
-    public Score getScore(Person person){
-        //do business logic
-        Score score = new Score();
-        score.setScoreType(Score.ScoreType.HIGH);
-        return score;
-    }
-}
-</code>
-</pre>
 
 <p>Define spec for data model</p>
-<pre class="prettyprint">
-<code>
-(s/def :person/fname string?)
-(s/def :person/lname string?)
-(s/def :person/birthDate inst?)
+<script src="https://gist.github.com/Mamun/47a8293a9a7347497e3f63e69d498b02.js"></script>
 
-(s/def :address/roadName string?)
-(s/def :address/houseNo string?)
-(s/def :address/postCode int?)
-(s/def :address/city string?)
-(s/def :address/country string?)
-
-(s/def ::address (s/keys :req-un [:address/roadName
-                                  :address/houseNo
-                                  :address/postCode
-                                  :address/city
-                                  :address/country]))
-
-(s/def ::person (s/keys :req-un [:person/fname
-                                 :person/lname
-                                 :person/birthDate]
-                        :opt-un [::address]))
-
-
-(s/def :score/value int?)
-(s/def ::score (s/keys :req-un [:score/value]))
-</code>
-</pre>
 
 <p>Generate Sample data</p>
-<pre class="prettyprint">
-<code>
-(g/sample (s/gen ::person) 2)
-;;Sample data
-({:fname "", :lname "", :birthDate #inst"1969-12-31T23:59:59.999-00:00"}
- {:fname "k",
-  :lname "",
-  :birthDate #inst"1970-01-01T00:00:00.000-00:00",
-  :address {:roadName "O", :houseNo "R", :postCode -1, :city "0", :country "4"}})
-</code>
-</pre>
+<script src="https://gist.github.com/Mamun/dd1fe1b9d874cc33741abdcaf5045bd4.js"></script>
+
 
 
 <p>Write clojure test case to call java API </p>
-<pre class="prettyprint">
-<code>
-(def gson (Gson.))
 
-(defn from-json [v t]
-  (.fromJson gson v t))
-
-(defn to-jtype [t v]
-  (-> v
-      (cheshire/generate-string)
-      (from-json t)))
-
-(defn get-score [v]
-  (->> (u/to-jtype Person v)
-       (.getScore (ScoreService.))
-       (u/from-jtype)))
-
-(s/fdef get-score
-        :args (s/cat :v ::person)
-        :ret ::score)
-
-(ct/defspec get-score-test
-            10
-            (prop/for-all [v (s/gen ::person)]
-                          (let [w (get-score v)]
-                            (not= nil? w))))
-</code>
-</pre>
 
 <p>Run clojure test from command line   </p>
 <pre class="prettyprint">
