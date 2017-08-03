@@ -8,23 +8,54 @@ categories=cat1
 author=Abdullah Mamun
 ~~~~~~
 
-<p> Define data model and service </p>
-<script src="https://gist.github.com/Mamun/1b1a69e4eaca30260f39cbd4852d314d.js"></script>
+<p>
+    <b>About Property based testing</b>
+    <br/>
+    Property based testing checks certain propertied hold true for all possible input. It does this by automatically
+    generating random sample of valid inputs.
+    <br/>
+    <a href="https://hackage.haskell.org/package/QuickCheck">More about property based testing </a>
+</p>
+
+<p><b>Clojure spec is for </b></p>
+<ul>
+    <li>Documentation</li>
+    <li>Validation</li>
+    <li>Error reporting</li>
+    <li>Destructuring</li>
+    <li>Instrumentation</li>
+    <li><b>Test-data generation</b></li>
+    <li><b>Generative test generation</b></li>
+</ul>
+<a href="https://clojure.org/about/spec">More about Clojure spec</a>
+<br/>
+All of the spec features are for clojure but it is also very easy to integrate
+<b>Test-data generation</b> and
+<b>Generative test generation</b> features to any type (new or legacy) of java application.
+
+<br/><br/>
+<p><b>Define data model and service</b>
+    <br/>
+    <script src="https://gist.github.com/Mamun/1b1a69e4eaca30260f39cbd4852d314d.js"></script>
+</p>
 
 
-<p>Define spec for data model</p>
-<script src="https://gist.github.com/Mamun/47a8293a9a7347497e3f63e69d498b02.js"></script>
+<p><b>Define spec for data model</b>
+    <br/>
+    <script src="https://gist.github.com/Mamun/47a8293a9a7347497e3f63e69d498b02.js"></script>
+</p>
 
 
-<p>Generate Sample data</p>
-<script src="https://gist.github.com/Mamun/dd1fe1b9d874cc33741abdcaf5045bd4.js"></script>
+<p><b>Generate Sample data</b>
+    <br/>
+    <script src="https://gist.github.com/Mamun/dd1fe1b9d874cc33741abdcaf5045bd4.js"></script>
+</p>
 
 
+<p><b>Write clojure test case to call java API </b></p>
 
-<p>Write clojure test case to call java API </p>
-
-
-<p>Run clojure test from command line   </p>
+<br/>
+<b>Run clojure test from command line </b>
 <pre class="prettyprint">
 <code>
 mvn clojure:test
@@ -44,5 +75,7 @@ Ran 1 tests containing 1 assertions.
 Tests run: , Assertions: 1, Failures: 0, Errors: 0
 </code>
 </pre>
-<p><a href="https://github.com/Mamun/java-spec">Github link</a></p>
+<br>
+
+<p><a href="https://github.com/Mamun/java-spec"> <b>Source code github link</b> </a></p>
 
